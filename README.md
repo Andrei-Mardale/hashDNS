@@ -7,6 +7,8 @@ Basically key = website_name and value = ip_address.
 
 Besides the "find" operation, the hashtable also supports the usual "put"/"remove" operations.
 
+#How to compile
+
 
 
 
