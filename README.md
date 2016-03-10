@@ -1,9 +1,9 @@
 # hashDNS
 My first Data Structures homework
 
-A hashtable implementation which is supposed to simulate the lookup operations made by a DNS server. Basically the key = website name and value = ip address.
+A hashtable implementation which is supposed to simulate the lookup operations made by a DNS server. Basically key = website_name and value = ip_address.
 
-Besides the "find" operation, the hashtable also supports the usual "put"/"remove" operation.
+Besides the "find" operation, the hashtable also supports the usual "put"/"remove" operations.
 
 
 
