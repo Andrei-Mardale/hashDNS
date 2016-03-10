@@ -1,0 +1,24 @@
+Listele generice simplu inlantuite sunt implementate in list.c si list.h. Am implementat doar functiile de care am avut nevoie.
+Singura diferenta fata de ce-am facut la curs este ca functia de distrugere primeste un parametru in plus si anume functia de eliberare a informatiei (asta pentru a evita parcuregea listei in afara fisierelor mentionate). Daca pointerul la functie este NULL atunci se apeleaza pur si simplu free().
+
+Hash-ul este implementat in hash.c hash.h. Am declarat tipul functiei de dispersie in header dar aceasta este definita in dns.c. Toate functiile care trebuie sa acceseze un bucket din hash primesc direct indexul bucketului. Functie de disperse este apelata inainte de chema functiile de hash. Am facut aceasta alegere pentru ca mi s-a parut ca a simplificat implementarea. Mai aveam 2 alternative: 1) sa definesc 2 functii de dispersie una pentru char * si una pentru AEL 2) sa las o singura functie definita dar de fiecare data cand o chem sa trebuiasca sa aloc in nou element AEL in care sa pun cheia (nu este necesar mereu, uneori doar caut cheia deci nu trebuie sa aloc memorie pentru tot elementul) => ineficienta
+Pentru determinarea indexului in bucket efectuez 2 pasi:
+1) fhash(char *s) => suma de caracterelor
+2) suma % n => index
+Datorita acestui fapt nu a mai trebuie sa trimit 2 parametri functiei de dispersie, ceea ce probabil mareste viteza de executie
+Am vazut ca aceasta implementare este utilizata in practica: http://en.wikipedia.org/wiki/Hash_table#Hashing
+
+In dns.h si dns.c am implementat functiile cerute si am definit tipul elementului din lista AEL. 
+Toate functiile sunt chemate in urma parsarii comenzilor cu functia parse care sparge sirul de intrare in comenzi si argumente (cu strtok).
+O parte neplacuta a fost definirea a 2 functii de comparatie:
+- una care primeste 2 AEL in cazul in care un element este deja alocat spre a fi adaugat intr-un bucket (lista ordonata)
+- una care primeste 1 AEL si un char *(care este chiar cheia).
+Am facut aceasta alegere pentru eficienta. Astfel nu mai trebuie sa aloc memorie pentru un nou AEL doar ca sa caut cheia in liste, de exemplu.
+
+Pe scurt programul functioneaza astfel:
+1) Ia comanda din fisierul de intrare
+2) O parseaza cu fct parse
+3) In functie de primul sir se determina intructiunea si functia ce trebuie apelata
+4) Urmatoarele 1 sau 2 argumente sunt trimise ca parametri functiei.
+5) Se repeta pana cand se atinge sfarsitul fisierului.
+   
